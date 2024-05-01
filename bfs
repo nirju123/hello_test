@@ -1,0 +1,52 @@
+// @@@@@@@@@@@@@@@@@@@@@@@ BFS Algorithm @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+ class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int m=g.size(),n=g[0].size(),fresh=0,ans=0;
+        //declare a queue and a visited array
+        queue <pair<int,int>> q;
+        vector<vector<int>> g = grid; 
+        
+       //insert the starting nodes for the bfs algo
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(g[i][j]==2) q.push(make_pair(i,j));
+                else if(g[i][j]==1) fresh++;
+            }
+        }
+        
+        //neighbour declaration
+        int dr[] = {-1, 0, 1, 0};
+        int dc[] = {0, -1, 0, 1};
+        
+        //starting the BFS algo
+        while(!q.empty() && fresh>0){
+             int currSize=q.size();
+             
+             for(int i=0;i<currSize;i++){
+                auto [r,c] = q.front(); 
+                q.pop();
+                
+                for(int j=0;j<4;j++){
+                    int nc = c + dc[j];
+                    int nr = r + dr[j];
+                    
+                    if (nc < 0 || nr < 0 || nr >= m || nc >= n) {
+                        continue;
+                    }
+                    else if(g[nr][nc]==1){
+                        q.push(make_pair(nr, nc));
+                        g[nr][nc] = 2;
+                        fresh--;
+                    }
+                }
+             }
+             ans++;
+            
+        }
+        
+       return fresh>0? -1:ans;
+
+    }
+};
+
