@@ -1,0 +1,30 @@
+///finding all prime upto 10e6 in n*log(logn)  time complxity
+const int N = 1e6+1;
+bool isprime[N + 1];
+ 
+void SieveOfEratosthenes() {
+    memset(isprime, true, sizeof(isprime));
+    for (int p = 2; p * p <= N; p++) {
+        if (isprime[p] == true) {
+           for (int i = p * p; i <= N; i += p) isprime[i] = false;
+        }
+    }
+}
+///finding prime in sqrt(n) time complxity
+ 
+bool isPrime(int n)
+{
+    // Corner cases
+    if (n <= 1)
+        return false;
+  //suppose n=7 that is prime and its pair are (1,7)
+  //so if a no. is prime then it can be check by numbers smaller than square root
+  // of the n
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0)
+            return false;
+    }
+    return true;
+}
+
+
