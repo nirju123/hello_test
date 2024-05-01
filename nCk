@@ -1,0 +1,51 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <bits/stdc++.h>
+#define int            long long
+typedef long long ll;
+using namespace std;
+const int mod= 998244353;
+vector<int> fac(61,1);
+
+int gcd(int a, int b, int& x, int& y) {
+    x = 1, y = 0;
+    int x1 = 0, y1 = 1, a1 = a, b1 = b;
+    while (b1) {
+        int q = a1 / b1;
+        tie(x, x1) = make_tuple(x1, x - q * x1);
+        tie(y, y1) = make_tuple(y1, y - q * y1);
+        tie(a1, b1) = make_tuple(b1, a1 - q * b1);
+    }
+    return a1;
+}
+int nCk(int n,int k){
+    if (n < k)
+        return 0;
+    // Base case
+    if (k == 0)
+        return 1;
+    int x,y;
+    gcd(fac[n-k],mod,x,y);
+    int d1= (x % mod + mod)%mod ;
+    gcd(fac[k],mod,x,y);
+    int d2= (x % mod + mod)%mod ;
+    return ((fac[n]*d1)%mod*d2)%mod;
+    
+}
+
+signed  main()
+{
+    for(int i=1;i<61;i++) fac[i]=(fac[i-1]*i)%mod;
+    int t;cin>>t;
+    while(t--){
+     
+    }
+
+    return 0;
+}
